@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ghcr.io/<your-github-username>/jetstay-frontend:v1
+          image: ghcr.io/fenikxshi/jetstay-frontend:v1
           imagePullPolicy: Always
           ports:
             - name: http
