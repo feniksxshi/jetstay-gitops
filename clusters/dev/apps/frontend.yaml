@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jetstay-frontend
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/feniksxshi/jetstay-gitops.git
+    targetRevision: main
+    path: apps/frontend/overlays/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: jetstay
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
