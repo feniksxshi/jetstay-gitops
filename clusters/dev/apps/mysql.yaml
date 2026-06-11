@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/feniksxshi/jetstay-gitops.git
     targetRevision: main
-    path: apps/mysql/overlays/dev
+    path: mysql/overlays/dev
   destination:
     server: https://kubernetes.default.svc
     namespace: jetstay
