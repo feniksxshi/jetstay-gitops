@@ -29,3 +29,5 @@ After waiting for a bit, I got all healthy applications
 ![alt text](image-2.png)
 Vì: 
 ![alt text](image-3.png)
+
+## Thêm application 
