@@ -22,4 +22,10 @@ After waiting for a bit, I got all healthy applications
 
 <!-- kubectl -n argocd describe application jetstay-mysql -->
 <!-- download CRDs for backend application -->
+
 ## Test GitOps self-heal và rollback
+### Self-head
+![alt text](image-1.png)
+![alt text](image-2.png)
+Vì: 
+![alt text](image-3.png)
