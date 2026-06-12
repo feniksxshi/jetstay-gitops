@@ -5,7 +5,14 @@ metadata:
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "1" #Runs First!
-spec: 
+spec: feniks@DESKTOP-VCMR1O8:/mnt/g/de_space/xbrain/jetstay-gitops$ kubectl -n argocd get applications
+NAME                SYNC STATUS   HEALTH STATUS
+jetstay-backend     Synced        Healthy
+jetstay-frontend    Synced        Healthy
+jetstay-mysql       Synced        Healthy
+jetstay-namespace   Synced        Healthy
+jetstay-root        Synced        Healthy
+monitoring          OutOfSync     Healthy
   project: default
   source:
     repoURL: https://github.io
