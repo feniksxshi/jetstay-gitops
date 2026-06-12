@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ghcr.io/feniksxshi/etstay-backend:v2
+          image: ghcr.io/<your-github-username>/jetstay-backend:v2
           imagePullPolicy: Always
           ports:
             - name: http
