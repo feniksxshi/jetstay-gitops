@@ -27,8 +27,8 @@ After waiting for a bit, I got all healthy applications
 ### Self-head
 ![alt text](image-1.png)
 ![alt text](image-2.png)
-Vì: 
+
 ![alt text](image-3.png)
 
 ## Thêm application với app-of-apps
-![alt text](image-4.png)
+![alt text](image-5.png)

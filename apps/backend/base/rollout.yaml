@@ -16,7 +16,7 @@ spec:
         - name: github-registry-secret
       containers:
         - name: backend
-          image: ghcr.io/feniksxshi/jetstay-backend:v2
+          image: ghcr.io/feniksxshi/jetstay-backend:v3
           imagePullPolicy: Always
           ports:
             - name: http
