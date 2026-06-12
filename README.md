@@ -1,19 +1,20 @@
 # jetstay-gitops
 
-> Term: \
-> File manifest: là file cấu hình YAML mô tả trạng thái mong muốn của resource trên K8s
+> Term:
+> - File manifest: là file cấu hình YAML mô tả trạng thái mong muốn của resource trên K8s
 
 ## Ensure website run in local 
 
 ## Github Image Registry
+```bash
 kubectl create secret docker-registry github-registry-secret \
   --docker-server=ghcr.io \
   --docker-username=YOUR_GITHUB_USERNAME \
   --docker-password=YOUR_GITHUB_TOKEN \
   -n jetstay
-
+```
 ## App-of-apps
-ArgoCD implements auto-sync which means its child apps are sync automatically
+ArgoCD implements auto-sync, which means its child apps are synced automatically
 ![alt text](image.png)
 
 After waiting for a bit, I got all healthy applications
