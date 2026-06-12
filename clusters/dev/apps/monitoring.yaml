@@ -4,33 +4,33 @@ metadata:
   name: monitoring
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "60"
+    argocd.argoproj.io/sync-wave: "2" # Runs after Wave 1 is finished!
 spec:
   project: default
-
   source:
-    repoURL: https://prometheus-community.github.io/helm-charts
+    repoURL: https://github.io
     chart: kube-prometheus-stack
-    targetRevision: "86.2.2"
+    targetRevision: 86.2.2
     helm:
       releaseName: kube-prometheus-stack
       values: |
+        # This stops Helm from trying to install CRDs again
+        crds:
+          enabled: false 
         grafana:
           enabled: true
-
         prometheus:
           prometheusSpec:
             serviceMonitorSelectorNilUsesHelmValues: false
-
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
-
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
       - SkipDryRunOnMissingResource=true
+      - ServerSideApply=true
+      - ServerSideApply=trueManagedFieldsOnly=true

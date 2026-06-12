@@ -1,24 +1,68 @@
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: argo-rollouts
+#   namespace: argocd
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "4"
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://argoproj.github.io/argo-helm
+#     chart: argo-rollouts
+#     targetRevision: 2.41.0
+#     helm:
+#       releaseName: argo-rollouts
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: argo-rollouts
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: Rollout
 metadata:
-  name: argo-rollouts
-  namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "4"
+  name: backend
 spec:
-  project: default
-  source:
-    repoURL: https://argoproj.github.io/argo-helm
-    chart: argo-rollouts
-    targetRevision: 2.41.0
-    helm:
-      releaseName: argo-rollouts
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: argo-rollouts
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+  replicas: 4
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/feniks/jetstay-backend:v2
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: backend-config
+            - secretRef:
+                name: backend-secret
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 40
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 20
+  strategy:
+    canary:
+      steps:
+        - setWeight: 25
+        - pause: {}
