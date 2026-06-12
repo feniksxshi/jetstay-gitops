@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ghcr.io/feniks/jetstay-backend:v3
+          image: ghcr.io/feniksxshi/jetstay-backend:v3
           imagePullPolicy: Always
           ports:
             - name: http
