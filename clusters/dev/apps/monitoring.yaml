@@ -23,7 +23,7 @@ spec:
           prometheusSpec:
             serviceMonitorSelectorNilUsesHelmValues: false
   destination:
-    server: https://default.svc
+    server: https://kubernetes.default.svc
     namespace: monitoring
   syncPolicy:
     automated:
@@ -33,4 +33,4 @@ spec:
       - CreateNamespace=true
       - SkipDryRunOnMissingResource=true
       - ServerSideApply=true
-      - Replace=true
+      - ServerSideApply=trueManagedFieldsOnly=true
