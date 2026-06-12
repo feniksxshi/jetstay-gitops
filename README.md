@@ -30,4 +30,5 @@ After waiting for a bit, I got all healthy applications
 Vì: 
 ![alt text](image-3.png)
 
-## Thêm application 
+## Thêm application với app-of-apps
+![alt text](image-4.png)
