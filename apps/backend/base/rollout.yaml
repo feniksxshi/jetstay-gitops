@@ -1,9 +1,9 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: backend
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: backend
@@ -12,11 +12,9 @@ spec:
       labels:
         app: backend
     spec:
-      imagePullSecrets:
-        - name: github-registry-secret
       containers:
         - name: backend
-          image: ghcr.io/feniksxshi/jetstay-backend:v3
+          image: ghcr.io/feniksxshi/etstay-backend:v2
           imagePullPolicy: Always
           ports:
             - name: http
@@ -27,12 +25,19 @@ spec:
             - secretRef:
                 name: backend-secret
           readinessProbe:
-            tcpSocket:
+            httpGet:
+              path: /actuator/health
               port: 8080
             initialDelaySeconds: 40
             periodSeconds: 10
           livenessProbe:
-            tcpSocket:
+            httpGet:
+              path: /actuator/health
               port: 8080
             initialDelaySeconds: 60
             periodSeconds: 20
+  strategy:
+    canary:
+      steps:
+        - setWeight: 25
+        - pause: {}
