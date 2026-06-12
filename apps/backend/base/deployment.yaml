@@ -16,6 +16,8 @@ spec:
         - name: backend
           image: ghcr.io/feniksxshi/jetstay-backend:v1
           imagePullPolicy: Always
+          imagePullSecrets:
+            - name: github-registry-secret
           ports:
             - name: http
               containerPort: 8080
