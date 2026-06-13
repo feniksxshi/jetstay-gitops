@@ -24,3 +24,5 @@ Run and it works:
 ## ArgoCD app-of-apps
 Check secret: 
 ![alt text](image-4.png)
+
+![alt text](image-7.png)

@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: ghcr.io/feniksxshi/todonoon-python:v1
+          image: ghcr.io/feniksxshi/todoapp-python:v1
           imagePullPolicy: Always
           ports:
             - name: http
