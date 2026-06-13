@@ -4,7 +4,7 @@ metadata:
   name: api-success-rate
   namespace: demo
   annotations:
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   metrics:
     - name: success-rate
