@@ -1,0 +1,52 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: platform-monitoring
+  namespace: argocd
+spec:
+  source:
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
+    targetRevision: 65.1.1
+    helm:
+      values: |
+        prometheus:
+          prometheusSpec:
+            serviceMonitorSelectorNilUsesHelmValues: false
+            ruleSelectorNilUsesHelmValues: false
+
+        alertmanager:
+          alertmanagerSpec:
+            secrets:
+              - alertmanager-smtp-secret
+
+          config:
+            global:
+              smtp_smarthost: 'smtp.gmail.com:587'
+              smtp_from: 'YOUR_EMAIL@gmail.com'
+              smtp_auth_username: 'YOUR_EMAIL@gmail.com'
+              smtp_auth_password_file: '/etc/alertmanager/secrets/alertmanager-smtp-secret/smtp_password'
+              smtp_require_tls: true
+
+            route:
+              receiver: personal-email
+              group_by: ['alertname']
+              group_wait: 10s
+              group_interval: 30s
+              repeat_interval: 30m
+
+            receivers:
+              - name: personal-email
+                email_configs:
+                  - to: 'thuyhienphanthi2004@gmail.com'
+                    send_resolved: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

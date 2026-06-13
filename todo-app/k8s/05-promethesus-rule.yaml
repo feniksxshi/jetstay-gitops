@@ -1,0 +1,26 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: api-slo-alert
+  namespace: demo
+  labels:
+    app: api
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  groups:
+    - name: api-slo
+      rules:
+        - alert: ApiSuccessRateTooLow
+          expr: |
+            (
+              sum(rate(flask_http_request_total{status!~"5.."}[2m]))
+              /
+              sum(rate(flask_http_request_total[2m]))
+            ) < 0.95
+          for: 30s
+          labels:
+            severity: warning
+          annotations:
+            summary: "API success rate is below 95%"
+            description: "TodoNoon API success rate dropped below the W9 SLO threshold."

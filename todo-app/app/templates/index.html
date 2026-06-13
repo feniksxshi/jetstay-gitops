@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TodoNoon — Python Flask Todo</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <div class="brand-mark">T</div>
+      <div>
+        <p class="eyebrow">GitOps · Observability · Canary</p>
+        <h1>TodoNoon</h1>
+      </div>
+      <div class="version-card">
+        <span>VERSION</span>
+        <strong>{{ app_version }}</strong>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <p class="tag">python flask web app</p>
+        <h2>Ship tasks like a hacker journalist.</h2>
+        <p class="subtext">
+          A minimal Todo List built with Python Flask, styled with a HackerNoon-inspired neon editorial look,
+          and ready for W9 GitOps, Prometheus SLO, and canary auto-abort testing.
+        </p>
+      </div>
+
+      <div class="stats-grid">
+        <article>
+          <span>{{ total }}</span>
+          <p>Total</p>
+        </article>
+        <article>
+          <span>{{ pending }}</span>
+          <p>Pending</p>
+        </article>
+        <article>
+          <span>{{ done }}</span>
+          <p>Done</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <form class="todo-form" action="{{ url_for('add_todo') }}" method="post">
+        <input
+          type="text"
+          name="title"
+          placeholder="Write a task, deploy it through Git..."
+          autocomplete="off"
+          required
+        />
+        <button type="submit">Add Task</button>
+      </form>
+
+      <div class="todo-list">
+        {% if todos %}
+          {% for todo in todos %}
+            <article class="todo-card {% if todo.done %}done{% endif %}">
+              <div class="todo-main">
+                <form action="{{ url_for('toggle_todo', todo_id=todo.id) }}" method="post">
+                  <button class="check-button" type="submit" aria-label="Toggle task">
+                    {% if todo.done %}✓{% else %}#{% endif %}
+                  </button>
+                </form>
+
+                <div>
+                  <h3>{{ todo.title }}</h3>
+                  <p>created at {{ todo.created_at }} · id {{ todo.id }}</p>
+                </div>
+              </div>
+
+              <form action="{{ url_for('delete_todo', todo_id=todo.id) }}" method="post">
+                <button class="delete-button" type="submit">Delete</button>
+              </form>
+            </article>
+          {% endfor %}
+        {% else %}
+          <div class="empty-state">
+            <h3>No tasks left.</h3>
+            <p>Add one task above and commit your progress.</p>
+          </div>
+        {% endif %}
+      </div>
+
+      <form action="{{ url_for('reset_todos') }}" method="post" class="reset-form">
+        <button type="submit">Reset all tasks</button>
+      </form>
+    </section>
+
+    <section class="ops-panel">
+      <div>
+        <h3>W9-ready endpoints</h3>
+        <p><code>/healthz</code> for readiness · <code>/metrics</code> for Prometheus · <code>/api/info</code> for JSON info</p>
+      </div>
+      <div>
+        <h3>Error injection</h3>
+        <p>Current <code>ERROR_RATE={{ error_rate }}</code>. Increase it to test alert firing and canary auto-abort.</p>
+      </div>
+    </section>
+
+    <footer>
+      <span>TodoNoon</span>
+      <span>Built with Python Flask</span>
+    </footer>
+  </main>
+</body>
+</html>

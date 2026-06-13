@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TodoNoon — Injected Error</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <main class="page-shell">
+    <section class="error-box">
+      <p class="tag">500 · canary test</p>
+      <h1>Injected failure</h1>
+      <p>
+        This error was generated intentionally for Prometheus alerting and Argo Rollouts analysis testing.
+      </p>
+      <div class="ops-panel">
+        <div>
+          <h3>Version</h3>
+          <p><code>{{ app_version }}</code></p>
+        </div>
+        <div>
+          <h3>Error rate</h3>
+          <p><code>{{ error_rate }}</code></p>
+        </div>
+      </div>
+      <a class="home-link" href="/">Back to TodoNoon</a>
+    </section>
+  </main>
+</body>
+</html>
