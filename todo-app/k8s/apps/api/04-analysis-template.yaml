@@ -5,7 +5,7 @@ metadata:
   namespace: demo
   annotations:
     argocd.argoproj.io/sync-wave: "1"
-    
+
 spec:
   metrics:
     - name: success-rate
@@ -15,7 +15,7 @@ spec:
       successCondition: result[0] >= 0.95 # new version works
       provider:
         prometheus:
-          address: http://kube-prometheus-stack-prometheus.monitoring.svc:9090
+          address: http://platform-monitoring-kube-p-prometheus.monitoring.svc:9090
           query: |
             sum(rate(flask_http_request_total{status!~"5.."}[2m]))
             /
