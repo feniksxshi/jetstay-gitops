@@ -4,13 +4,17 @@ metadata:
   name: api
   namespace: argocd
 spec:
+  project: default
+
   source:
     repoURL: https://github.com/feniksxshi/jetstay-gitops.git
     targetRevision: main
     path: apps/api
+
   destination:
     server: https://kubernetes.default.svc
     namespace: demo
+    
   syncPolicy:
     automated:
       prune: true

@@ -4,13 +4,17 @@ metadata:
   name: platform-argo-rollouts
   namespace: argocd
 spec:
+  project: default
+  
   source:
     repoURL: https://argoproj.github.io/argo-helm
     chart: argo-rollouts
     targetRevision: 2.37.7
+
   destination:
     server: https://kubernetes.default.svc
     namespace: argo-rollouts
+
   syncPolicy:
     automated:
       prune: true
