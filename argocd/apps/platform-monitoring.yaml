@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  
+
   source:
     repoURL: https://prometheus-community.github.io/helm-charts
     chart: kube-prometheus-stack
@@ -25,8 +25,8 @@ spec:
           config:
             global:
               smtp_smarthost: 'smtp.gmail.com:587'
-              smtp_from: 'YOUR_EMAIL@gmail.com'
-              smtp_auth_username: 'YOUR_EMAIL@gmail.com'
+              smtp_from: 'thuyhienphanthi2004@gmail.com'
+              smtp_auth_username: 'thuyhienphanthi2004@gmail.com'
               smtp_auth_password_file: '/etc/alertmanager/secrets/alertmanager-smtp-secret/smtp_password'
               smtp_require_tls: true
 
