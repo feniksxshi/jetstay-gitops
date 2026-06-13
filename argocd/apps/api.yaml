@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/feniksxshi/jetstay-gitops.git
     targetRevision: main
-    path: todo-app/apps/api
+    path: todo-app/k8s/apps/api
 
   destination:
     server: https://kubernetes.default.svc
