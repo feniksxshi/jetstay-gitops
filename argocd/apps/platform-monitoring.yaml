@@ -38,8 +38,6 @@ spec:
               repeat_interval: 30m
 
             receivers:
-              - name: 'null'
-              
               - name: personal-email
                 email_configs:
                   - to: 'thuyhienphanthi2004@gmail.com'
