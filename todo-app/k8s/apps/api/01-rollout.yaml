@@ -20,16 +20,16 @@ spec:
     spec:
       containers:
         - name: api
-          image: ghcr.io/feniksxshi/todoapp-python:v3
+          image: ghcr.io/feniksxshi/todoapp-python:v5-bad
           imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 8080
           env:
             - name: APP_VERSION
-              value: "v3"
+              value: "v5-bad"
             - name: ERROR_RATE
-              value: "0"
+              value: "0.5"
           readinessProbe:
             httpGet:
               path: /healthz
