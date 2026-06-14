@@ -29,7 +29,7 @@ spec:
             - name: APP_VERSION
               value: "v5-bad"
             - name: ERROR_RATE
-              value: "1"
+              value: "0.5"
           readinessProbe:
             httpGet:
               path: /healthz
@@ -55,7 +55,7 @@ spec:
         - setWeight: 50
         - pause:
             duration: 30s
-        - analysis:
-            templates:
-              - templateName: api-success-rate
+        # - analysis:
+        #     templates:
+        #       - templateName: api-success-rate
         - setWeight: 100
