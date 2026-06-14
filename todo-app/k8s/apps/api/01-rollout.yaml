@@ -29,7 +29,7 @@ spec:
             - name: APP_VERSION
               value: "v5-bad"
             - name: ERROR_RATE
-              value: "0.5"
+              value: "1"
           readinessProbe:
             httpGet:
               path: /healthz
